@@ -1,0 +1,16 @@
+:root { --ink: #12303b; }
+body { background: #eef3f5; color: var(--ink); font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
+.debt-hero { background: linear-gradient(135deg, #8e1c1c, #c62828); color: #fff; border-radius: 14px; }
+.debtor { border-left: 6px solid #f2a007; }
+.debtor.overdue { border-left-color: #c62828; background: #fff6f6; }
+.q-table__title, .text-h5 { letter-spacing: -0.01em; }
+.big-num { font-size: clamp(2.2rem, 7vw, 3.6rem); font-weight: 800; line-height: 1; }
+.pulse { animation: pulse 1.8s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { opacity: 1 } 50% { opacity: .55 } }
+@media (prefers-reduced-motion: reduce) { .pulse { animation: none; } }
+
+@media print {
+  .q-header, .q-drawer, .no-print { display: none !important; }
+  .q-page-container { padding: 0 !important; }
+  body { background: #fff; }
+}

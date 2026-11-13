@@ -1,0 +1,43 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER:-viki}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-viki_secret}
+      POSTGRES_DB: ${DB_NAME:-truchas_viki}
+      TZ: America/La_Paz
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-viki} -d ${DB_NAME:-truchas_viki}"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    environment:
+      TZ: America/La_Paz
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: ${DB_USER:-viki}
+      DB_PASSWORD: ${DB_PASSWORD:-viki_secret}
+      DB_NAME: ${DB_NAME:-truchas_viki}
+      JWT_SECRET: ${JWT_SECRET:-cambia-esta-clave-larga-y-secreta}
+      SEED_PASSWORD: ${SEED_PASSWORD:-viki2026}
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    ports:
+      - "${WEB_PORT:-8080}:80"
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
