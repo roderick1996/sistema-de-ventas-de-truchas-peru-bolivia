@@ -5,7 +5,8 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "start": "node dist/main.js",
-    "start:dev": "tsc -p tsconfig.json && node dist/main.js"
+    "start:dev": "tsc -p tsconfig.json && node dist/main.js",
+    "start:prod": "node dist/main.js"
   },
   "dependencies": {
     "@nestjs/common": "^10.4.0",
