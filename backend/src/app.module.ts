@@ -8,11 +8,10 @@ import { CoreModule } from './core/core.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: process.env.DB_HOST || 'localhost',
-      port: +(process.env.DB_PORT || 5432),
-      username: process.env.DB_USER || 'viki',
-      password: process.env.DB_PASSWORD || 'viki_secret',
-      database: process.env.DB_NAME || 'truchas_viki',
+      url: process.env.DATABASE_URL,
+      ssl: {
+        rejectUnauthorized: false,
+      },
       entities: ALL_ENTITIES,
       synchronize: true,
       retryAttempts: 20,
