@@ -1,12 +1,19 @@
+
 import axios from 'axios';
 import { Notify } from 'quasar';
 
-const api = axios.create({ baseURL: '/api' });
+const baseURL = import.meta.env.VITE_API_URL 
+  ? `${import.meta.env.VITE_API_URL.replace(/\/$/, '')}/api` 
+  : '/api';
+
+const api = axios.create({ baseURL });
+
 api.interceptors.request.use((c) => {
   const t = localStorage.getItem('tv_token');
   if (t) c.headers.Authorization = `Bearer ${t}`;
   return c;
 });
+
 api.interceptors.response.use(
   (r) => r,
   (e) => {
@@ -23,4 +30,5 @@ api.interceptors.response.use(
     return Promise.reject(e);
   },
 );
+
 export default api;
