@@ -1,1 +1,9 @@
-
+{
+  "name": "Truchas ViKI",
+  "short_name": "ViKI",
+  "description": "Sistema de control de deudas y ventas de truchas",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#027be3"
+}
